@@ -1,0 +1,41 @@
+---
+- name: Add Elasticsearch YUM repository
+  copy:
+    content: |
+      [elasticsearch-7.x]
+      name=Elasticsearch repository for 7.x packages
+      baseurl=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-x86_64.rpm
+      gpgcheck=1
+      gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+      enabled=1
+      autorefresh=1
+      type=rpm-md
+    dest: /etc/yum.repos.d/elasticsearch.repo
+  become: yes
+
+- name: Install Elasticsearch
+  yum:
+    name: elasticsearch
+    state: present
+  become: yes
+
+- name: Enable and start Elasticsearch service
+  systemd:
+    name: elasticsearch
+    enabled: yes
+    state: started
+  become: yes
+
+- name: Install Logstash
+  yum:
+    name: logstash
+    state: present
+  become: yes
+
+- name: Enable and start Logstash service
+  systemd:
+    name: logstash
+    enabled: yes
+    state: started
+  become: yes
+

@@ -1,0 +1,57 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+# ELK Centos
+- hosts: elk_centos
+  tags: elk_centos, elk_both 
+  become: true
+  roles:
+    - elk_centos
+
+# ELK Ubuntu
+- hosts: elk_ubuntu
+  tags: elk_ubuntu, elk_both
+  become: true
+  roles:
+    - elk_ubuntu
+
+
+# Nagios Centos
+- hosts: nagios_centos
+  tags: nagios_centos
+  become: true
+  roles:
+    - nagios_centos
+
+
+# IGP (Influxdb, Grafana, Prometheus) Centos
+- hosts: igp_centos
+  tags: igp_centos, igp_both
+  become: true
+  roles: 
+    - igp_centos
+
+# IGP (Influxdb, Grafana, Prometheus) Ubuntu
+- hosts: igp_ubuntu
+  tags: igp_ubuntu, igp_both
+  become: true
+  roles: 
+    - igp_ubuntu
+
+
+# Lamp Stack (HTTPD + Php, Mariadb) Centos
+- hosts: ls_centos
+  tags: ls_centos, ls_both
+  become: true
+  roles: 
+    - ls_centos
+
+# Lamp Stack (HTTPD + Php, Mariadb) Ubuntu
+- hosts: ls_ubuntu
+  tags: ls_ubuntu, ls_both
+  become: true
+  roles: 
+    - ls_ubuntu
